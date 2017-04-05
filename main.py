@@ -6,6 +6,7 @@ import os
 from command import Command
 from help import Help
 from rickquote import RickQuote
+from goodnews import GoodNews
 
 from base64 import b64decode
 from urlparse import parse_qs

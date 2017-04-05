@@ -1,15 +1,21 @@
-import os, random
+import boto3
+import os
+import random
+
+from base64 import b64decode
 
 from command import Command
 from twitter import *
 from random import randint
 
 class GoodNews(Command):
-    def check_command(self):
+    def check_command(self, bucket):
         return { "text": "<%s>" % self.get_news(200), "unfurl_links": True, "unfurl_media": True, "response_type": "in_channel" }
 
     def get_news(self, count):
         # Decrypting Twitter keys from Lambda ENV vars
+        kms = boto3.client('kms')
+
         ENCRYPTED_ACCESS_KEY = os.environ['twitterAccessKey']
         access_key = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_ACCESS_KEY))['Plaintext']
         ENCRYPTED_ACCESS_SECRET = os.environ['twitterAccessSecret']
