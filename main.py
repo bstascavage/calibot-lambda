@@ -11,12 +11,13 @@ from base64 import b64decode
 from urlparse import parse_qs
 
 ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedToken']
+S3_BUCKET = os.environ['S3Bucket']
 
 kms = boto3.client('kms')
 expected_token = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_EXPECTED_TOKEN))['Plaintext']
 
 s3 = boto3.resource('s3')
-bucket = s3.Bucket('calibot-data')
+bucket = s3.Bucket(kms.decrypt(CiphertextBlob=b64decode(S3_BUCKET))['Plaintext'])
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)   
