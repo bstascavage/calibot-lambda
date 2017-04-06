@@ -1,6 +1,6 @@
 TARGET = calibot
 
-all: build sync deploy
+all: clean build sync deploy
 
 build: 
 	cd $(TARGET); rm -f $(TARGET).zip; pip install -r requirements.txt -t .; zip -r $(TARGET).zip *
