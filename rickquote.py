@@ -6,7 +6,7 @@ class RickQuote(Command):
     def check_command(self, bucket):
         # Search S3 bucket for rickquotes.txt
        	for obj in bucket.objects.all():
-       	    if obj.key == 'rickquotes.txt':
+       	    if obj.key == 'data/rickquotes.txt':
                 lines = obj.get()['Body'].read()
 
         # Pick a random line
