@@ -1,0 +1,3 @@
+/help                                    List all calibot commands
+/goodnews                          Post a random cute photo
+/rickquote                           Post a random Rick quote from "Rick and Morty"
